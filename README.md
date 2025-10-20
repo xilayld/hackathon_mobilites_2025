@@ -13,20 +13,20 @@ L’objectif est d’explorer comment les données, leurs traitements et leurs r
 Nous avons ainsi formulé plusieurs défis et mettrons à la disposition des candidats des données et ressources adaptées pour y répondre.
 
 Cette année nous vous proposons 4 défis :
-Défi 1 - Encourager la pratique du vélo, les **mobilités actives** et l’intermodalité
-Défi 2 - Aider les entreprises à **décarboner** les mobilités de leurs salariés
-Défi 3 - Créer des **outils d’analyses** des mobilités pour les collectivités franciliennes
-Défi 4 - Améliorer **l’accessibilité et le confort** des services de mobilités
+- **Défi 1** - Encourager la pratique du vélo, les **mobilités actives** et l’intermodalité
+- **Défi 2** - Aider les entreprises à **décarboner** les mobilités de leurs salariés
+- **Défi 3** - Créer des **outils d’analyses** des mobilités pour les collectivités franciliennes
+- **Défi 4** - Améliorer **l’accessibilité et le confort** des services de mobilités
 
 
 Ce guide des participant.e.s vous aidera tout au long de ce Hackathon et dans sa phase de préparation. 
 
 ## Sommaire
-1. [Le programme](lien)
-2. [Les défis](lien)
-2. [Les ressources et les outils](lien)
-3. [Vos résultats](lien)
-4. [La FAQ](lien)
+1. [Le programme](https://github.com/hackathons-mobilites/hackathon_mobilites_2025?tab=readme-ov-file#le-programme)
+2. [Les défis](https://github.com/hackathons-mobilites/hackathon_mobilites_2025?tab=readme-ov-file#les-d%C3%A9fis)
+2. [Les ressources et les outils](https://github.com/IleDeFranceMobilites/hackathon_mobilites_2025?tab=readme-ov-file#les-ressources-et-les-outils)
+3. [Vos résultats](https://github.com/IleDeFranceMobilites/hackathon_mobilites_2025?tab=readme-ov-file#vos-r%C3%A9sultats)
+4. [La FAQ](https://github.com/IleDeFranceMobilites/hackathon_mobilites_2025?tab=readme-ov-file#foire-aux-questions-faq)
 
 ## Le programme
 
