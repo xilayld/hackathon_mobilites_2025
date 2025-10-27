@@ -81,8 +81,8 @@ Au cours de ces deux journées, vous relevez un défi en équipe de 4 à 7 perso
 C'est sur le slack qu'auront lieu les principaux échanges ([lien d'invitation au slack](https://hackathonmobvingtcinq.slack.com)). Chaque canal possède une description dans un message épinglé.
 - **00-general** : pour échanger librement sur le Hackathon, vous présenter, et poser vos questions à l'équipe d'organisation.
 - **01-équipe-X-nom-équipe** : pour échanger en équipe
-- **02-ressources et outils** : pour échanger sur les ressources et les outils mis à disposition par Île-de-France Mobilités 
-- **03-données** : pour échanger sur les données mises à disposition par Île-de-France Mobilités et ses partenaires
+- **03-ressources et outils** : pour échanger sur les ressources et les outils mis à disposition par Île-de-France Mobilités 
+- **04-données** : pour échanger sur les données mises à disposition par Île-de-France Mobilités et ses partenaires
 
 Une fois ajouté sur le slack, **vous pouvez vous présenter dans le canal 00-general** et échanger dans les canaux dédiés. 
 
