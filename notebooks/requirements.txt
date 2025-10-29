@@ -1,0 +1,4 @@
+boto3==1.40.60
+pandas==2.2.3
+requests==2.32.4
+llama_cpp_python==0.3.16
