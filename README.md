@@ -1,4 +1,4 @@
-![Logo du Hackathon Mobilités](https://github.com/hackathons-mobilites/hackathon_mobilites_2025/blob/main/images_documentation/Hackathon%20mobilite%CC%81s_logo%20simple.jpg)
+![Logo du Hackathon Mobilités](images_documentation/Hackathon mobilités_logo simple.jpg)
 
 # Guide des participant·e·s au Hackathon Mobilités 2025
 
@@ -238,7 +238,7 @@ Si vous n’avez pas d’équipe et/ou que vous n’avez pas pu assister lors du
 <details>
 <summary>7. Comment rejoindre le Slack de l’événement ?</summary>
 </br>
-Pour rejoindre le slack, il suffit de suivre ce <a href="https://join.slack.com/t/dataiailedefr-mya4689/shared_invite/zt-2u2bo2v10-YcUO~FlnNwl~W0mLCZLBUQ">lien</a>. Nous vous invitons à vous présenter dans le canal #00-general. Vous y trouverez les autres participant·e·s et tous les échanges passeront par cet outil.
+Pour rejoindre le slack, il suffit de suivre ce <a href="https://hackathonmobvingtcinq.slack.com">lien</a>. Nous vous invitons à vous présenter dans le canal #00-general. Vous y trouverez les autres participant·e·s et tous les échanges passeront par cet outil.
 </details>
 </br>
 <details>
