@@ -2,7 +2,7 @@
 
 # Guide des participant·e·s au Hackathon Mobilités 2025
 
-Bienvenue dans le Hackathon Mobilités organisé par Île-de-France Mobilités.
+Bienvenue dans le Hackathon Mobilités 2025 organisé par Île-de-France Mobilités.
 
 ## _Hackathon Mobilités_
 
@@ -13,7 +13,7 @@ L’objectif est d’explorer comment les données, leurs traitements et leurs r
 Nous avons ainsi formulé plusieurs défis et mettrons à la disposition des candidats des données et ressources adaptées pour y répondre.
 
 Cette année nous vous proposons 4 défis :
-- **Défi 1** - Encourager la pratique du vélo, les **mobilités actives** et l’intermodalité
+- **Défi 1** - Évaluer l’impact des **mobilités actives** et de l’intermodalité
 - **Défi 2** - Aider les entreprises à **décarboner** les mobilités de leurs salariés
 - **Défi 3** - Créer des **outils d’analyses** des mobilités pour les collectivités franciliennes
 - **Défi 4** - Améliorer **l’accessibilité et le confort** des services de mobilités
@@ -72,7 +72,7 @@ Au cours de ces deux journées, vous relevez un défi en équipe de 4 à 7 perso
 - **Défi 1** - Mobilités actives et intermodalité : évaluation d'impact et propositions d'outils
 - **Défi 2** - Outils à destination des entreprises
 - **Défi 3** - Outils à destination des collectivités territoriales
-- **Défi 4** - Accessibilité et confirt des usagers des transports publics
+- **Défi 4** - Accessibilité et confort des usagers des transports publics
 
 ## Les ressources et les outils
 
@@ -96,7 +96,7 @@ Une fois un service d'IDE déployé sur Onyxia (voir ci-dessous) vous pouvez clo
 
 Deux choses : 
 - **Pour le README, veuillez [utiliser ce modèle](docs/Template README 2025.md)** (il vous servira pour l'envoi de votre projet à la fin du Hackathon).
-- Ajoutez le topic *hackathonidfm2025* à la description de votre répertoire (voir image ci-dessous)
+- Ajoutez le topic *hackathonmobilites2025* à la description de votre répertoire (voir image ci-dessous)
 
 
 #### La plateforme Onyxia et ses services
@@ -111,13 +111,12 @@ C'est une application web open-source développée par l’Insee conçue pour le
 
 ![Capture d'écran sélection du projet Onyxia](images_documentation/onyxia accueil.png)
 
-Vous pouvez ensuite **lancer des services** (par exemple un service Visual Studio Code Python), et les lier au repositoire de code de votre groupe. Nommez bien vos service avec le nom de votre équipe "EQUIPE X".
+Vous pouvez ensuite **lancer des services** (par exemple un service Visual Studio Code Python), et les lier au repositoire de code de votre groupe. Nommez bien vos services avec le nom de votre équipe "EQUIPE X".
 
  Attention, les services ne sont pas stables s'ils sont éteints, alors vous perdez leurs configurations. 
  
 Pour en savoir plus : 
 - Voir [ce tutoriel](https://docs.onyxia.sh/user-doc/setting-up-your-dev-environment-in-onyxia) pour configurer automatiquement le lancement d'un sevice.
-- Lire ce [rapide document](docs/Organisation et lancement des services Onyxia.md) pour savoir comment sont gérées les secrets d'accès aux services Azure et OpenIA sur Onyxia
 
 Les principaux services proposés : 
 | Nom du service | Description | Catégorie de service | Espace de lancement |
@@ -139,10 +138,12 @@ Vous disposez d'un certain nombre de ressources. **Le but n'est pas de toutes le
 | Les données et documents | Liste de toutes les données et documents | [lien](https://airtable.com/appGp6Hwf0NrmXQ9L/shrnmQYmL0lDKgS76/tblC8dlSqeplzyg0A) |
 | Le notebooks de prise en main des données | Notebook pour prendre en main certains jeux de données | [lien](https://github.com/hackathons-mobilites/hackathon_mobilites_2025/tree/main/notebooks) |
 | Les snippets de code | Snippets de code pour rapidement prendre en main les APIs | [lien](/notebooks/HM2025 - Snippets de code.ipynb) |
+| Le scritps de itineraires piétonniers | permet de générer des itinéraires entre une gare et un POI | [lien](/notebooks/HM2025 - Snippets de code.ipynb) |
+
 
 ##### Les données et documents
 
-Pour entraîner vos algorithmes, visualiser des données, utilser des APIs ou encore alimenter votre RAG nous avons sélectionné pour vous des **données et documents**. 
+Pour entraîner vos algorithmes, visualiser des données, utiliser des APIs ou encore alimenter votre RAG nous avons sélectionné pour vous des **données et documents**. 
 
 Ils sont accessibles [depuis ce lien](https://airtable.com/appGp6Hwf0NrmXQ9L/shrnmQYmL0lDKgS76/tblC8dlSqeplzyg0A). Vous pouvez **filtrer les données sur le défi qui vous intéresse**. Certaines ressources sont issues du [Catalogue PRIM](https://prim.iledefrance-mobilites.fr/fr), d'autres sont directement ajoutées dans les fichiers du projet Onyxia 'dlb-hackathon'.
 
@@ -157,11 +158,10 @@ Certains jeux de données ont été spécialement mis à disposition pour le Hac
 Ces **[snippets de code](/notebooks/HM2025 - Snippets de code.ipynb)** vont vous permettre de gagner du temps dans la prise en main des ressources à disposition et de l'écosystème data d'île-de-France Mobilités. Par exemple, pour réaliser les appels PRIM d'Île-de-France Mobilités.
 
 #### Les exemples (notebook)
-Les équipes d'Île-de-France Mobilités ont préparé un [**exemple de Retrieval Augemented Generation RAG**](lien), avec un exemple de création et d'[**alimentation d'une base vectorielle**](lien), qui permet d'enrichir les connaissances d'un modèle de langage avec des données spécifiques. 
 
 Vous pouvez **lancer les notebooks exemple directement sur Onyxia**. Pour cela, **assurez vous d'être connecté·e·s sur Onyxia et d'être sur le projet "dlb-hackathon"**, puis lancez un service type VSCODE-Python et importez-y les [notebook exemples](/notebooks/HM2025 - Snippets de code.ipynb) du dossier notebook de ce projet github.
 
-Vous avez également à disposition un [guide d'utilisation du stockage des données sur Onyxia](/notebooks/HM2025 - Snippets de code.ipynb) (S3 MinIO, DuckDB, etc...).
+Vous avez également à disposition un [guide d'utilisation du stockage des données sur Onyxia](/notebooks/HM2025 - Snippets de code.ipynb).
 
 #### La documentation
 Comme d'habitude, lisez les documentations en ligne des services utilisés !
@@ -169,7 +169,7 @@ Comme d'habitude, lisez les documentations en ligne des services utilisés !
 ## Vos résultats
 
 ### Publier vos réalisations
-Vos projets viendront alimenter la communauté Data IA et mobilités. **Les réalisation seront publiées sous licences libres** (type MIT) et publiées sur **un répertoire de coce public** (Github ou Gitlab). 
+Vos projets viendront alimenter la communauté Data IA et mobilités. **Les réalisations seront publiées sous licences libres** (type MIT) et publiées sur **un répertoire de code public** (Github ou Gitlab). 
 
 Concrètement, vous allez réaliser :
 - un [support de présentation](https://drive.google.com/drive/u/0/folders/1F9pkX9DwDJxw5rXWIiKHeD_um1sa5BH9) pour le pitch ;
@@ -180,7 +180,7 @@ Concrètement, vous allez réaliser :
 
 Rappel : 
 - **Pour le README, veuillez [utiliser ce modèle](docs/Template README 2025.md)** (il vous servira pour l'envoi de votre projet à la fin du Hackathon).
-- Ajoutez le topic *hackathonidfm2025* à la description de votre répertoire (voir image ci-dessous)
+- Ajoutez le topic *hackathonmobilites2025* à la description de votre répertoire (voir image ci-dessous)
 - **Ajoutez le lien de votre répertoire** dans vos diapositives de pitch + vos canal slack en message épinglé
 
 ### Les prix
