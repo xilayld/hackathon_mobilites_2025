@@ -29,3 +29,7 @@ git add .
 git commit -m "{votre message de commit}"
 git push
 ```
+
+## Les pépites du Hackathon IA Mobilités 2024
+
+Retrouvez aussi les meilleurs projets de l'année dernière en suivant ce [lien](https://github.com/hackathons-mobilites/hackathon_ia_mobilites_2024/blob/main/resultats/Readme.md).
