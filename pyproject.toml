@@ -5,10 +5,13 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "boto3>=1.40.72",
     "duckdb>=1.4.2",
     "geopandas>=1.1.1",
+    "huggingface-hub>=1.1.4",
     "jupyter>=1.1.1",
     "matplotlib>=3.10.7",
+    "openai>=2.7.2",
     "pandas>=2.3.3",
     "plotly>=6.4.0",
     "polars>=1.35.2",
