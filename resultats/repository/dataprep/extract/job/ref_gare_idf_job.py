@@ -15,7 +15,7 @@ class RefGareIdfJob(JobRunner):
 
         # Transformation des données et sélection des colonnes utiles
         df["station_clean"] = df["nom_zda"].apply(Transformation.clean_name)
-        cols = ["geo_point_2d", "id_ref_zdc", "nom_zda",
+        cols = ["geo_point_2d", "id_ref_zdc", "id_ref_zda", "nom_zda",
                 "station_clean", "res_com", "mode", "exploitant"]
         df_selected = df[cols]
 

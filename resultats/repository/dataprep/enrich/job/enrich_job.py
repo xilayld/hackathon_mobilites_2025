@@ -12,6 +12,9 @@ class EnrichJob(JobRunner):
         self.validation_path = "/home/onyxia/work/hackathon_mobilites_2025/data/interim/validation_pourcentage.parquet"
         self.etablissements_path = "/home/onyxia/work/hackathon_mobilites_2025/data/interim/etablissements.gpq"
         self.ascenseurs_path = "/home/onyxia/work/hackathon_mobilites_2025/data/raw/etat-des-ascenseurs.csv"
+        self.corr_nombre_etape_path = "/home/onyxia/work/hackathon_mobilites_2025/data/interim/metro_connexion_nombre_etape.parquet"
+        self.corr_path = "/home/onyxia/work/hackathon_mobilites_2025/data/metro_conexion_qualif.parquet"
+
         self.out_path = "/home/onyxia/work/hackathon_mobilites_2025/data/enrich/final_table.gpq"
 
     def process(self):
@@ -19,10 +22,26 @@ class EnrichJob(JobRunner):
         df_carte_pmr = LoaderLocal.loader_parquet(self.carte_pmr_path)
         df_validation = LoaderLocal.loader_parquet(self.validation_path)
         df_etablissement = LoaderLocal.loader_geoparquet(self.etablissements_path)
-        df_ascenseurs = LoaderLocal.loader_csv(self.ascenseurs_path, sep = ";")
+        df_ascenseurs = LoaderLocal.loader_csv(self.ascenseurs_path, sep=";")
+        df_corr_nombre_etape = LoaderLocal.loader_parquet(self.corr_nombre_etape_path)
+        df_corr = LoaderLocal.loader_parquet(self.corr_path)
+
+        # Jointure les données de correspondances
+        df_corr_nombre_etape_select = df_corr_nombre_etape[["station", "total_nb_etapes"]]
+        df_corr_description = df_corr.groupby(["Station", "ID Zone arret ICAR"]).agg(
+                    moyenne_stairs=('total_stairs', 'mean'),
+                    moyenne_meters=('total_meters', 'mean'),
+                    moyenne_asc=('ascendings', 'mean'),
+                    moyenne_desc=('descendings', 'mean'),
+                ).reset_index()
+
+        df_corr_join = pd.merge(df_corr_description, df_corr_nombre_etape_select,
+                                left_on="Station", right_on="station", how="left")
+        df_ref_gare_corr = pd.merge(df_ref_gare, df_corr_join, how="left",
+                                    left_on="id_ref_zda", right_on="ID Zone arret ICAR")
 
         # Jointure avec la carte PMR
-        df_join_carte = pd.merge(df_ref_gare, df_carte_pmr, on='station_clean', how='right')
+        df_join_carte = pd.merge(df_ref_gare_corr, df_carte_pmr, on='station_clean', how='right')
         df_filter_carte = df_join_carte[
             df_join_carte['ligne'].isna() |
             (df_join_carte['ligne'] == '') |
@@ -86,7 +105,7 @@ class EnrichJob(JobRunner):
 
         print("✅ Calcul de LGF_250m / LGF_500m terminé.")
 
-        #Group by station, count ascenseurs
+        # Group by station, count ascenseurs
         df_asc_counts = (
             df_ascenseurs
                 .groupby("zdcid")['liftid']
