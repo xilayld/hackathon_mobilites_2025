@@ -104,12 +104,11 @@ Un moteur de recommandations d'actions automatiques pourrait être ajouté et pr
 
 Dans un second temps, en pouvant coupler cet outil à une recherche d'itinéraire, nos usagers cibles pourraient aussi être des personnes en situation de handicap (mental, moteur, visuel, auditif, dû à l'âge) pour leur permettre de trouver des **itinéraires réellement accessibles** (avec des équipements fonctionnels à l'instant t et le parcours dans la station extrait de Metro connexion).
 
-## Implémentation technique
-TODO Julien
 
 ## Installation et utilisation
 
-### Installation : 
+### Installation :
+
 Récupérer le code source (branche Equipe-2) : 
 `git clone https://github.com/hackathons-mobilites/hackathon_mobilites_2025.git`
 
@@ -119,20 +118,141 @@ Installer les librairies python utilisées
 pip install -r requirements.txt
 ```
 
-Créer le jeu de données : 
- lancer le 
- 
-```python
-python resultats/repository/dataprep/main.py
-```
+### Utilisation
 
-### Fonctionnement
+1. **Lancements des notebooks** 
+Lancement des deux notebooks présents dans le dossier Notebooks_process pour créer les tables :
+  - `data/interim/metro_connexion_nombre_etape.parquet`  
+  - `data/metro_conexion_qualif.parquet`
+2. **Lancements du DataPrep** 
+Executer le fichier python présent dans resultats/repository/dataprep/main.py
 
-**Utilisation de la carte interactive**
-
+3. **Utilisation de la carte interactive**
 ```python
 streamlit run resultats/repository/geoparquet_app/main.py
 ```
+
+
+## Documentation Technique du framework
+
+### Structure des données
+
+Le projet utilise plusieurs sources de données brutes et intermédiaires :
+
+- **Données brutes CSV** :  
+  - Carte PMR : `data/raw/carte_pmr.csv`  
+  - Référentiel des gares IDF : `data/raw/emplacement-des-gares-idf.csv`  
+  - État des ascenseurs : `data/raw/etat-des-ascenseurs.csv`  
+  - Établissements pour enfants/adultes handicapés et hôpitaux  
+  - Validations du réseau ferré par trimestre
+
+- **Données intermédiaires Parquet / GeoParquet** :  
+  - `data/interim/carte_pmr.parquet`  
+  - `data/interim/ref_gares.gpq`  
+  - `data/interim/validation_pourcentage.parquet`  
+  - `data/interim/etablissements.gpq`  
+  - `data/interim/metro_connexion_nombre_etape.parquet`  
+  - `data/metro_conexion_qualif.parquet`
+
+- **Données finales** :  
+  - Enrichies : `data/enrich/final_table.gpq`  
+  - Avec classification : `data/enrich/final_table_with_class.gpq`
+
+
+### Notebooks de préparation des données (dossier notebook_process)
+
+Deux notebooks traitent les données de `data/raw/metro_connexion_corresp_idfm_ref.csv` :
+
+1. **metro_connexion_llm.ipynb**  
+   - **Objectif** : Calculer le nombre de mètres et d’escaliers montés grâce à un modèle LLM.  
+   - **Sortie** : `data/interim/metro_connexion_nombre_etape.parquet` 
+
+2. **metro_connexion_nombre_etape.ipynb**  
+   - **Objectif** : Agréger les données pour obtenir le nombre total d’étapes pour chaque station.  
+   - **Sortie** : `data/interim/metro_connexion_nombre_etape.parquet`  
+
+Ces notebooks servent de pré-traitement pour le pipeline principal.
+
+### Framework de transformation des données (dossier DataPrep)
+#### Pipeline de traitement 
+
+La pipeline se compose de plusieurs jobs orchestrés dans l’ordre suivant :
+
+1. **Carte PMR** : extraction et nettoyage des données PMR.
+2. **Établissements** : consolidation et nettoyage des établissements critiques.
+3. **Référentiel gares IDF** : nettoyage et géocodage des stations.
+4. **Validations réseau** : calcul des totaux et pourcentages par station.
+5. **Enrichissement** : jointure de toutes les sources et calculs supplémentaires (LGF, ascenseurs, correspondances).
+6. **Classification** : attribution des stations à des classes selon des métriques clés.
+
+
+#### Description des Jobs
+
+##### CartePmrJob
+- **Objectif** : Nettoyer et transformer les données de la carte PMR.
+- **Entrée** : `data/raw/carte_pmr.csv`
+- **Sortie** : `data/interim/carte_pmr.parquet`
+- **Principales étapes** :
+  - Lecture CSV
+  - Nettoyage du nom des stations
+  - Création d’une colonne d’ordre (`facilite_acces_order`) à partir des codes couleur
+  - Export au format Parquet
+
+##### EtablissementJob
+- **Objectif** : Consolider et normaliser les données d’établissements (adultes/enfants handicapés, hôpitaux)
+- **Entrées** : CSVs d’établissements multiples
+- **Sortie** : `data/interim/etablissements.gpq`
+- **Principales étapes** :
+  - Harmonisation des colonnes (lat, lng, raison sociale)
+  - Suppression des coordonnées manquantes
+  - Ajout du type d’établissement
+  - Fusion des sources
+  - Conversion en GeoDataFrame
+
+##### RefGareIdfJob
+- **Objectif** : Nettoyer et transformer le référentiel des gares IDF
+- **Entrée** : `data/raw/emplacement-des-gares-idf.csv`
+- **Sortie** : `data/interim/ref_gares.gpq`
+- **Principales étapes** :
+  - Lecture CSV
+  - Nettoyage des noms de stations
+  - Extraction des coordonnées depuis `geo_point_2d`
+  - Conversion en GeoDataFrame
+  - Export en GeoParquet
+
+##### ValidationJob
+- **Objectif** : Consolider les validations par station et calculer le pourcentage de validations "Amethyste"
+- **Entrées** : Plusieurs fichiers Parquet trimestriels
+- **Sortie** : `data/interim/validation_pourcentage.parquet`
+- **Principales étapes** :
+  - Lecture et concaténation des fichiers
+  - Nettoyage des colonnes numériques
+  - Calcul du total par station
+  - Calcul du total "Amethyste" et pourcentage
+  - Export au format Parquet
+
+##### EnrichJob
+- **Objectif** : Combiner toutes les sources de données et enrichir les stations avec des métriques supplémentaires
+- **Entrées** :
+  - `ref_gares.gpq`, `carte_pmr.parquet`, `validation_pourcentage.parquet`, `etablissements.gpq`, `etat-des-ascenseurs.csv`, correspondances métro
+- **Sortie** : `data/enrich/final_table.gpq`
+- **Principales étapes** :
+  - Jointures des correspondances et métriques
+  - Filtrage des stations PMR
+  - Calcul des distances Haversine pour établissements critiques (LGF_250m / LGF_500m)
+  - Comptage des ascenseurs par station
+  - Export GeoParquet
+
+##### ClassificationStationsJob
+- **Objectif** : Classer les stations selon plusieurs critères (accessibilité, LGF, ascenseurs, escaliers, étapes)
+- **Entrée** : `data/enrich/final_table.gpq`
+- **Sortie** : `data/enrich/final_table_with_class.gpq`
+- **Principales étapes** :
+  - Sélection des colonnes pertinentes pour la classification
+  - Définition des centres idéaux pour chaque classe
+  - Attribution des stations à la classe la plus proche (inspiré de K-Means)
+  - Mise à jour du GeoDataFrame
+  - Export GeoParquet
 
 
 ### Utilisation de l'IA / Frugalité
